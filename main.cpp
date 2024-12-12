@@ -1,16 +1,6 @@
-/* #include <SDL3/SDL_events.h>
-#include <SDL3/SDL_mouse.h>
-#include <SDL3/SDL_oldnames.h>
-#include <SDL3/SDL_rect.h>
-#include <SDL3/SDL_render.h>
-#include <SDL3/SDL_scancode.h>
-#include <SDL3/SDL_stdinc.h> */
-//#include <SDL3/SDL_surface.h>
-//#include <SDL3/SDL_timer.h>
-//#include <cstdlib>
 #include <algorithm>
 #include <iostream>
-#define SDL_MAIN_USE_CALLBACKS 1 /* use the callbacks instead of main() */
+#define SDL_MAIN_USE_CALLBACKS 1 
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 
@@ -44,7 +34,6 @@ public:
         nextcells[y * height + x] = false;
         rects[y * height + x].x = x * cell_size;
 
-        //std::cout << rects[y * height + x].x << std::endl;
         rects[y * height + x].y = y * cell_size;
         rects[y * height + x].h = cell_size;
         rects[y * height + x].w = cell_size;
@@ -64,8 +53,6 @@ public:
         }
       }
     }
-    // SDL_RenderFillRects(renderer, rects, width*height);
-    //cells[100] = true;
   }
 
   bool getCell(int cellx, int celly){
@@ -124,8 +111,6 @@ public:
     }
 
     std::copy(nextcells, nextcells + (height * width), (cells));    
-    //cells = nextcells;
-    // std::cout << "updating\n";
   }
 };
 
@@ -145,12 +130,12 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
     return SDL_APP_FAILURE;
   }
 
-  return SDL_APP_CONTINUE; /* carry on with the program! */
+  return SDL_APP_CONTINUE; 
 }
 
 SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
   if (event->type == SDL_EVENT_QUIT) {
-    return SDL_APP_SUCCESS; /* end the program, reporting success to the OS. */
+    return SDL_APP_SUCCESS; 
   }
   if (event->type == SDL_EVENT_KEY_DOWN) {
     if (event->key.scancode == SDL_SCANCODE_ESCAPE) {
@@ -167,26 +152,22 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
     g.setCell(event->motion.x, event->motion.y);
   }
 
-  return SDL_APP_CONTINUE; /* carry on with the program! */
+  return SDL_APP_CONTINUE;
 }
+
 SDL_AppResult SDL_AppIterate(void *appstate) {
   frame++;
 
   if (frame > 10) {
-    // std::cout << "2000\n";
     g.update();
     frame = 0;
   }
   SDL_SetRenderDrawColor(renderer, 16, 16, 16,
-                         SDL_ALPHA_OPAQUE); /* black, full alpha */
-  SDL_RenderClear(renderer);                /* start with a blank canvas. */
-  // SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE); /*
-  // white, full alpha */
+                         SDL_ALPHA_OPAQUE); 
+  SDL_RenderClear(renderer);                
   g.draw();
-  /*std::cout << SDL_GetTicks() % 1000 << std::endl;*/
-  SDL_RenderPresent(renderer); /* put it all on the screen! */
-
-  return SDL_APP_CONTINUE; /* carry on with the program! */
+  SDL_RenderPresent(renderer); 
+  return SDL_APP_CONTINUE; 
 }
 
 void SDL_AppQuit(void *appstate, SDL_AppResult result) {}
