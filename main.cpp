@@ -1,4 +1,3 @@
-#include <algorithm>
 #include <iostream>
 #define SDL_MAIN_USE_CALLBACKS 1 
 #include <SDL3/SDL.h>
@@ -43,12 +42,11 @@ public:
   }
 
   void draw() {
-    SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
 
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
         if (cells[y * height + x] == true) {
-
+          SDL_SetRenderDrawColor(renderer, 235, 219, 178, 0);
           SDL_RenderFillRect(renderer, &rects[y * height + x]);
         }
       }
@@ -117,14 +115,14 @@ public:
 game g(10);
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
-  SDL_SetAppMetadata("test", "1.0", "com.testing.testing");
+  SDL_SetAppMetadata("conways game of life", "1.0", NULL);
 
   if (!SDL_Init(SDL_INIT_VIDEO)) {
     SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
     return SDL_APP_FAILURE;
   }
 
-  if (!SDL_CreateWindowAndRenderer("test", WINDOW_WIDTH, WINDOW_HEIGHT, 0,
+  if (!SDL_CreateWindowAndRenderer("conway game of life", WINDOW_WIDTH, WINDOW_HEIGHT, 0,
                                    &window, &renderer)) {
     SDL_Log("Couldn't create window/renderer: %s", SDL_GetError());
     return SDL_APP_FAILURE;
