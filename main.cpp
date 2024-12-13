@@ -110,6 +110,8 @@ public:
 
     std::copy(nextcells, nextcells + (height * width), (cells));    
   }
+
+  void clear() { std::fill_n(cells, height * width, false); }
 };
 
 game g(10);
@@ -143,12 +145,22 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
       g.isRunning = !g.isRunning;
       std::cout << g.isRunning << std::endl;
     }
+
+    if (event->key.scancode == SDL_SCANCODE_C) {
+      g.clear();
+      std::cout << "cleared" << std::endl;
+    }
   }
 
+  if (SDL_GetMouseState(NULL, NULL) & SDL_BUTTON_LEFT) {
+    g.setCell(event->motion.x, event->motion.y);
+  } 
   if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN &&
       event->button.button == SDL_BUTTON_LEFT) {
     g.setCell(event->motion.x, event->motion.y);
   }
+  
+
 
   return SDL_APP_CONTINUE;
 }
@@ -160,6 +172,7 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
     g.update();
     frame = 0;
   }
+
   SDL_SetRenderDrawColor(renderer, 16, 16, 16,
                          SDL_ALPHA_OPAQUE); 
   SDL_RenderClear(renderer);                
