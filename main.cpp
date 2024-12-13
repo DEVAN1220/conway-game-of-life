@@ -83,10 +83,6 @@ public:
         neighbours += getCell(x - 1, y + 1) == true ? 1 : 0;
         neighbours += getCell(x  , y + 1) == true ? 1 : 0;
         neighbours += getCell(x + 1, y + 1) == true ? 1 : 0;
-        if (neighbours >  10) {
-        
-        std::cout << x << ", " << y << std::endl;
-        }
 
         if (cells[current] == true) {
           if (neighbours < 2) {
