@@ -100,7 +100,7 @@ void update() {
   memcpy(cells, nextcells, sizeof(bool) * height * width);
 }
 
-void clear() { memset(nextcells, false, sizeof(bool) * height * width); }
+void clear() { memset(cells, false, sizeof(bool) * height * width); }
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
   start(10);
@@ -134,6 +134,7 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event) {
 
     if (event->key.scancode == SDL_SCANCODE_C) {
       clear();
+      printf("cleared");
     }
   }
 
