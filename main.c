@@ -104,14 +104,14 @@ void clear() { memset(nextcells, false, sizeof(bool) * height * width); }
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]) {
   start(10);
-  SDL_SetAppMetadata("test", "1.0", "com.example.CATEGORY-NAME");
+  SDL_SetAppMetadata("conways game of life", "1.0", "com.example.CATEGORY-NAME");
 
   if (!SDL_Init(SDL_INIT_VIDEO)) {
     SDL_Log("Couldn't initialize SDL: %s", SDL_GetError());
     return SDL_APP_FAILURE;
   }
 
-  if (!SDL_CreateWindowAndRenderer("test", 640, 480, 0, &window, &renderer)) {
+  if (!SDL_CreateWindowAndRenderer("conways game of life", WINDOW_SIZE, WINDOW_SIZE, 0, &window, &renderer)) {
     SDL_Log("Couldn't create window/renderer: %s", SDL_GetError());
     return SDL_APP_FAILURE;
   }
